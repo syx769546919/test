@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- <%@ include file=”relativeURI”%>
+
+<jsp:include page=”relativeURI” flush=”true” />  -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="jquery-1.11.1.js"></script>
+<style type="text/css">
+*{margin: 0;padding: 0;list-style: none;}
+.div1{
+width: 800px;
+height: 400px;
+overflow: hidden;
+margin: 0 auto;
+padding-top: 100px;
+}
+#ul li{
+float: left;
+}
+#ul li img{
+width: 800px;
+height: 400px;
+}
+#ul1 li{
+float: left;
+width: 15px;
+height: 15px;
+background-color: #ffffff;
+border: 3px solid white;
+border-radius: 10px;
+margin-left: 10px;
+position: relative;
+bottom: 50px;
+left: 300px;
+cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+<div class="div1">
+<ul id="ul" style="width: 5000px;">
+<li>
+<img src="images/ppp1.jpg" />
+</li>
+<li>
+<img src="images/ppp2.jpg" />
+</li>
+<li>
+<img src="images/ppp3.jpg" />
+</li>
+<li>
+<img src="images/ppp4.jpg" />
+</li>
+<li>
+<img src="images/ppp5.jpg" />
+</li>
+<!--将第一张图片添加到最后的位置-->
+<li>
+<img src="images/ppp1.jpg" />
+</li>
+</ul>
+<ul id="ul1">
+<li style="background-color: lightskyblue;" index="0"></li>
+<li index="1"></li>
+<li index="2"></li>
+<li index="3"></li>
+<li index="4"></li>
+</ul>
+</div>
+<script>
+var index=0;
+$(function(){
+//定义一个变量记录当前显示的图片序号
+//每隔2.5秒钟执行一次ul的滑动
+setInterval("tab()",2500);
+//给图标Li注册点击事件实现切换效果
+$("#ul1>li").click(function(){
+//根据当前点击的Li中保存的序号修改index的值
+index=parseInt($(this).attr("index"));
+liTab();
+});
+});
+function liTab(){
+$("#ul").animate({"margin-left":"-"+index*800+"px"},750);
+//修改圆形图标li的样式
+$("#ul1>li").css("background-color","#ffffff");
+//index代表当前正在显示的图片序号，使用index找到对应的圆形li图标
+if (index==5) {
+$("#ul1>li:first").css("background-color","lightskyblue");
+} else{
+$("#ul1>li:eq("+index+")").css("background-color","lightskyblue");
+}
+}
+//定义一个ul标签向左滑动的方法
+function tab(){
+if (index<5) {
+index++;
+//正常情况下ul执行向左滑动效果
+$("#ul").animate({"margin-left":"-"+index*800+"px"},750);
+} else{
+//先手动的通过CSS的方法将ul的左边距还原为第一张
+$("#ul").css("margin-left","0px");
+//将index修改为第二张图片的序号
+index=1;
+//通过动画执行ul向左滑动
+$("#ul").animate({"margin-left":"-"+index*800+"px"},750);
+}
+//修改圆形图标li的样式
+$("#ul1>li").css("background-color","#ffffff");
+//index代表当前正在显示的图片序号，使用index找到对应的圆形li图标
+if (index==5) {
+$("#ul1>li:first").css("background-color","lightskyblue");
+} else{
+$("#ul1>li:eq("+index+")").css("background-color","lightskyblue");
+}
+}
+</script>
+</body>
+</html>
