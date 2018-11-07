@@ -33,6 +33,7 @@ public class EndcodingFilter implements Filter {
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 			return;
 		}
+		System.out.println(1);
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		chain.doFilter(request, response);
